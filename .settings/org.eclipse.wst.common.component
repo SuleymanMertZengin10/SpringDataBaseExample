@@ -4,6 +4,7 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/widthJDBC"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/withSpringJDBCTemplate"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/withNamedParameterJdbcTemplate"/>
         <property name="context-root" value="SpringDataBaseExample"/>
         <property name="java-output-path" value="/SpringDataBaseExample/build/classes"/>
     </wb-module>

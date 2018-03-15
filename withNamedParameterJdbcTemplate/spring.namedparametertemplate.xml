@@ -22,22 +22,18 @@ http://www.springframework.org/schema/context/spring-context.xsd ">
 		<property name="url" value="${jdbc.url}" />
 		<property name="username" value="${jdbc.username}" />
 		<property name="password" value="${jdbc.password}" />
-	</bean>
-	<!--burada sınıfımızdaki propertyleri setter injectin yardımıyla inject ettik -->
+</bean>
 
-   <!-- diğer örnekten farklı olrak olusturduğumuz datasource jdbctemplate sınıfının içine vererek
-   bir kat daha soyutlamış oluyoruz
-     -->
-	<bean id="jdbcTemplateId" class="org.springframework.jdbc.core.JdbcTemplate">
+
+	<bean id="namedParameterJdbcTemplateId" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
 		<constructor-arg ref="dataSourceId"/>
 	</bean>
 	
-	<bean id="employeeDaoImp" class="dao.EmployeeDaoImp">
-	<constructor-arg name="jdbcTemplate" ref="jdbcTemplateId"></constructor-arg>
 	
+	<bean id="studentDaoImp" class="dao.StudentDaoImp">
+	
+	<constructor-arg name="namedParameterJdbcTemplate" ref="namedParameterJdbcTemplateId"></constructor-arg>
 	
 	</bean>
-	
-	
 
 </beans>
