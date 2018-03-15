@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans.xsd
+http://www.springframework.org/schema/context
+http://www.springframework.org/schema/context/spring-context.xsd ">
+
+  <bean 
+   class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+    <!-- bu sınıf yardımıyla propertiesdeki veritabanı configurasyonununa erişiyoruz -->
+    <property name="location" >
+    <value>jdbc.properties</value>
+    </property>
+  
+  </bean>
+  
+  <bean id="datasource1" 	class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="${jdbc.driverClassName}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+   </bean>
+   
+   <bean id="personDaoImp" class="dao.PersonDaoImp">
+   <property name="dataSource" ref="datasource1"></property>
+
+   </bean>
+
+<!-- 
+1-ilk başta org.springframework.beans.factory.config.PropertyPlaceholderConfigurer ssınıfı ile propertise dosymıza ulaşıyoruz
+2-org.springframework.jdbc.datasource.DriverManagerDataSource ile dataSource mızın içini dolduruyoruz.
+3-daha sonra setter injection ile dao.PersonDaoImp sınıfımızdaki objeye üsteki datasource referans gsteriyoruz
+4-artıkobjenin içi dolu veri tabanı işlemlerimizi yapabiliriz
+
+ -->
+
+
+
+</beans>
