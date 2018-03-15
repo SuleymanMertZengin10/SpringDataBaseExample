@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans.xsd
+http://www.springframework.org/schema/context
+http://www.springframework.org/schema/context/spring-context.xsd ">
+
+  <bean 
+   class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+    <!-- tekrar bu sınıf yardımıyla properties dosyamızda configurasonlara erişiyoruz -->
+    <property name="location" >
+    <value>jdbc.properties</value>
+    </property>
+  </bean>
+ <!-- data source oluşturalım -->
+   
+<bean id="dataSourceId"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="${jdbc.driverClassName}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+	</bean>
+	<!--burada sınıfımızdaki propertyleri setter injectin yardımıyla inject ettik -->
+
+   <!-- diğer örnekten farklı olrak olusturduğumuz datasource jdbctemplate sınıfının içine vererek
+   bir kat daha soyutlamış oluyoruz
+     -->
+	<bean id="jdbcTemplateId" class="org.springframework.jdbc.core.JdbcTemplate">
+		<constructor-arg ref="dataSourceId"/>
+	</bean>
+	
+	<bean id="employeeDaoImp" class="dao.EmployeeDaoImp">
+	<constructor-arg name="jdbcTemplate" ref="jdbcTemplateId"></constructor-arg>
+	
+	
+	</bean>
+	
+	
+
+</beans>
